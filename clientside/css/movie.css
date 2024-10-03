@@ -186,12 +186,11 @@ object-fit: cover;
 .bimg{
     width: 100%;
     height: 60vh;
-    
     background-position: center;
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
     color: white;
-    background-color: rgb(57, 48, 48);
+    /* background-color: rgb(57, 48, 48); */
 }
 .bimg1{
     height: 100%;
@@ -235,23 +234,32 @@ object-fit: cover;
 }
 .title{
     height: 70%;
+    width: 45%;
 }
 .title h1{
     margin-bottom: 1%;
+    margin-top: 17px;
 }
-#screen,#language{
+span{
+    margin-right: 2%;
+}
+#format,#language{
     padding: 2%;
     background-color: rgb(235, 234, 234);
     color: black;
-    margin: 2% 0;
+    margin: 5% 0;
     border-radius: 4px;
+    margin-top: 17px;
+    
 }
+
+ 
 .buttons{
-    margin-top: 2%;
+    margin-top: 8%;
 
 }
 .buttons button{
-    padding: 1.8% 5%;
+    padding: 2% 7%;
     margin-right: 2%;
     border-radius: 4px;
     

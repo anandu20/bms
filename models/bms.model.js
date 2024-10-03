@@ -6,7 +6,9 @@ const movieSchema=new mongoose.Schema({
     genre:{type:String},
     releaseDate:{type:String},
     language:{type:String},
+    format:{type:String},
     certification:{type:String},
-    picture:{type:String}
+    picture:{type:String},
+    banner:{type:String},
 });
 export default mongoose.model.Movies||mongoose.model("Movie",movieSchema);

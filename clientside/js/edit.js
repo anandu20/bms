@@ -2,11 +2,13 @@ const url=window.location.href;
 const urlParams=new URLSearchParams(url.split("?")[1]);
 const id=urlParams.get("id");
 let picture;
+let banner;
 async function getMovie() {
     const res=await fetch(`http://localhost:3000/api/getmovie/${id}`);
     const movie=await res.json();
     
     picture=movie.picture;
+    banner=movie.banner;
     document.getElementById("frm").innerHTML=`
     <label for="title">Movie Title:</label>
             <input type="text" id="title" name="title" value=${movie.title}>
@@ -23,8 +25,14 @@ async function getMovie() {
             <label for="language">Language:</label>
             <input type="text" id="language" name="language" value=${movie.language}>
 
+            <label for="format">Format:</label>
+            <input type="text" id="format" name="format" value=${movie.format}>
+
             <label for="certification">Certification:</label>
             <select id="certification" name="certification" value=${movie.certification}>
+
+
+            
                 <option value="U">U</option>
                 <option value="UA">UA</option>
                 <option value="A">A</option>
@@ -32,7 +40,10 @@ async function getMovie() {
             </select>
 
             <label for="picture">Picture:</label>
-            <input type="file" id="picture" name="picture" accept="image/*" onchange="pic()">
+            <input type="file" id="picture" name="picture" onchange="pic('picture')">
+
+                <label for="banner">Banner:</label>
+            <input type="file" id="banner" name="picture" onchange="pic('banner')"  >
 
             <button type="submit" >Submit</button>
     `;
@@ -47,11 +58,12 @@ document.getElementById("frm").addEventListener("submit",async(e)=>{
     const genre=document.getElementById("genre").value;
     const releaseDate=document.getElementById("releaseDate").value;
     const language=document.getElementById("language").value;
+    const format=document.getElementById("format").value;
     const certification=document.getElementById("certification").value;
     const res=await fetch(`http://localhost:3000/api/editmovie/${id}`,{
         method:"PUT",
         headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({title,duration,genre,releaseDate,language,certification,picture})
+        body:JSON.stringify({title,duration,genre,releaseDate,language,format,certification,picture,banner})
     })
     if(res.status==201){
         alert("Updated")
@@ -65,9 +77,20 @@ document.getElementById("frm").addEventListener("submit",async(e)=>{
     }
 })
 
-async function pic(){
-    console.log(document.getElementById("picture").files[0]);
-    picture=await convertToBase64(document.getElementById("picture").files[0]);
+async function pic(c){
+    console.log(c);
+    
+    if(c=="picture"){
+    picture=await convertToBase64(document.getElementById("picture").files[0]);  //it is to convert image to string format
+    // console.log(picture);
+
+    }
+    else{
+        banner=await convertToBase64(document.getElementById("banner").files[0]);  //it is to convert image to string format
+        // console.log(banner);
+        
+    }
+    
 }
 function convertToBase64(file) {
     return new Promise((resolve,reject)=>{

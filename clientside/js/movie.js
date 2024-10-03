@@ -6,9 +6,13 @@ console.log(id);
 async function getMovie() {
     const res=await fetch(`http://localhost:3000/api/getmovie/${id}`)
     const movie=await res.json();
+    console.log(movie.banner);
+    
+    document.getElementById("bimg").style.backgroundImage=`linear-gradient(90deg, rgb(26, 26, 26) 24.97%, rgb(26, 26, 26) 38.3%, rgba(26, 26, 26, 0.04) 97.47%, rgb(26, 26, 26) 100%),url(${movie.banner})`;
     document.getElementById("picture").src=movie.picture;
     document.getElementById("title").textContent=movie.title;
     document.getElementById("language").textContent=movie.language;
+    document.getElementById("format").textContent=movie.format;
     document.getElementById("duration").textContent=timeConvert(movie.duration);
     document.getElementById("genre").textContent=movie.genre;
     document.getElementById("certification").textContent=movie.certification;
