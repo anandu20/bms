@@ -10,9 +10,13 @@ async function getMovie() {
     picture=movie.picture;
     banner=movie.banner;
     document.getElementById("frm").innerHTML=`
-    <label for="title">Movie Title:</label>
-            <input type="text" id="title" name="title" value=${movie.title}>
+    
 
+              <div class="main">
+            <div class="left">
+            <label for="title">Movie Title:</label>
+            <input type="text" id="title" name="title" value=${movie.title}>
+            
             <label for="duration">Duration (in minutes):</label>
             <input type="number" id="duration" name="duration" value=${movie.duration}>
 
@@ -38,12 +42,23 @@ async function getMovie() {
                 <option value="A">A</option>
                 <option value="S">S</option>
             </select>
+             </div>
 
-            <label for="picture">Picture:</label>
-            <input type="file" id="picture" name="picture" onchange="pic('picture')">
-
-                <label for="banner">Banner:</label>
-            <input type="file" id="banner" name="picture" onchange="pic('banner')"  >
+             <div class="right">
+                <label for="picture">Picture:</label>
+                <input type="file" id="picture" name="picture" onchange="pic('picture')">
+                <div class="pic1" >
+                <img src="${picture}" alt="" id="picture1" >  
+                    
+                </div>
+    
+                <label for="banner">banner:</label>
+                <input type="file" id="banner" name="picture" onchange="pic('banner')" >
+                <div class="pic2" >
+                   <img src="${banner}" alt="" id="picture2">
+                </div>
+            </div>
+            </div> 
 
             <button type="submit" >Submit</button>
     `;
@@ -80,18 +95,24 @@ document.getElementById("frm").addEventListener("submit",async(e)=>{
 async function pic(c){
     console.log(c);
     
-    if(c=="picture"){
+    if(c=="picture"){ 
+    console.log("hai");
+    
     picture=await convertToBase64(document.getElementById("picture").files[0]);  //it is to convert image to string format
+    document.getElementById("picture1").src=picture;   // here we edit the poster image
     // console.log(picture);
 
     }
     else{
         banner=await convertToBase64(document.getElementById("banner").files[0]);  //it is to convert image to string format
+        document.getElementById("picture2").src=banner;
         // console.log(banner);
         
     }
     
 }
+//--this function he is used to convert  the image into string  for any images--
+
 function convertToBase64(file) {
     return new Promise((resolve,reject)=>{
         const fileReader=new FileReader();

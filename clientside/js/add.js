@@ -31,12 +31,15 @@ document.getElementById("frm").addEventListener("submit",async(e)=>{
         
     });
 })
-document.getElementById("picture").addEventListener("change",async(e)=>{
+document.getElementById("picture").addEventListener("change",async(e)=>{     // here the changed event will be ececuted so change used
     picture=await convertToBase64(document.getElementById("picture").files[0]);
+    document.getElementById ("picture1").innerHTML=`<img src="${picture}" alt="" >`; // inner html is used to use img tags so we can avoid the null frame
 })
 
 document.getElementById("banner").addEventListener("change",async(e)=>{
     banner=await convertToBase64(document.getElementById("banner").files[0]);
+    document.getElementById ("picture2"). innerHTML=`<img src="${banner}" alt=""> `    // this line is for print thee image we uploaded
+
 })
 function convertToBase64(file) {
     return new Promise((resolve,reject)=>{
